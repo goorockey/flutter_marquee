@@ -117,7 +117,7 @@ class _FlutterMarquee extends State<FlutterMarquee> {
     // if (widget.datas != null && widget.datas.length == 1) {}
     // if (widget.datas != null && widget.datas.length == 1 ||
     // widget.texts.length == 1) {}
-    if (widget.autoStart) {
+    if (widget.autoStart && items.length > 1) {
       _timer = Timer.periodic(Duration(seconds: widget.duration), (timer) {
         this.setState(() {
           currentPage++;
@@ -159,12 +159,16 @@ class _FlutterMarquee extends State<FlutterMarquee> {
         }
       }
     }
-    List<FlutterMarqueeItem> items = secondItem == null
-        ? <FlutterMarqueeItem>[firstItem..textColor = widget.seletedTextColor]
-        : <FlutterMarqueeItem>[
-            secondItem..textColor = widget.seletedTextColor,
-            firstItem..textColor = widget.textColor
-          ];
+    List<FlutterMarqueeItem> items = firstItem == null
+        ? []
+        : secondItem == null
+            ? <FlutterMarqueeItem>[
+                firstItem..textColor = widget.seletedTextColor
+              ]
+            : <FlutterMarqueeItem>[
+                secondItem..textColor = widget.seletedTextColor,
+                firstItem..textColor = widget.textColor
+              ];
 
     return ClipRect(
         child: Center(
